@@ -1,0 +1,12 @@
+path: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX
+train: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX/train.txt
+val: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX/val.txt
+nc: 7
+names:
+  0: barricade
+  1: biker
+  2: bus
+  3: car
+  4: person
+  5: plate
+  6: truck

@@ -1,0 +1,15 @@
+experiment_name: "yolo26_seg_demo"
+
+model: "/mnt/pfs-baidu/public/muyuan.zhang/runs/segment/train-3/weights/best.pt"
+
+input_path: "/mnt/pfs-baidu/public/muyuan.zhang//ultralytics-main/data/webdamages/AL4-AL98A5-M1-25010-20250716135316.mp4"
+
+output_dir: "/mnt/pfs-baidu/public/muyuan.zhang/runs/segment_demo"
+
+device: 0
+imgsz: 640
+conf_threshold: 0.05
+iou_threshold: 0.45
+
+frame_skip: 1
+save_masks: true
