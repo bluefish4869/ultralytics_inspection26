@@ -16,34 +16,31 @@ frame_skip: 1
 
 ######### 评估配置 #########
 eval_enabled: false
-gt_annotation_file: ""  # COCO格式标注文件，用于评估
+gt_annotation_file: "" # COCO格式标注文件，用于评估
 
 ######### 输出配置 #########
-is_save: true           # 总开关：是否保存任何输出
-save_pic: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_video: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_json: true         # 是否保存JSON结果
-
-
+is_save: true # 总开关：是否保存任何输出
+save_pic: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_video: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_json: true # 是否保存JSON结果
 
 ######### 训练配置（COCO JSON）#########
 # 填写以下字段以便使用 COCO JSON 直接训练（或在脚本中覆盖）
 training:
   # 数据集根目录，包含 images/ 和 annotations/ 子目录，或直接按需填写绝对路径
-  dataset_root: "/mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX"  # 已设置为你的 MEC_WX_6099_YKZX 数据集根目录
+  dataset_root: "/mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX" # 已设置为你的 MEC_WX_6099_YKZX 数据集根目录
   # COCO 格式的标注文件（JSON）。可填写绝对路径或相对路径。若留空，脚本会从 dataset_root/annotations/ 下寻找
-  train_json: ""    # e.g. /full/path/to/my_dataset/annotations/instances_train.json
-  val_json: ""      # e.g. /full/path/to/my_dataset/annotations/instances_val.json
+  train_json: "" # e.g. /full/path/to/my_dataset/annotations/instances_train.json
+  val_json: "" # e.g. /full/path/to/my_dataset/annotations/instances_val.json
   # 类别数量与名称（可选：若不填则从 JSON 的 categories 里读取并按 id 排序）
   nc: 0
-  names_file: ""    # 可指向包含 names 的 yaml 文件（可选）
+  names_file: "" # 可指向包含 names 的 yaml 文件（可选）
   # 训练超参（可在命令行/脚本中覆盖）
   epochs: 10
   imgsz: 640
   batch: 16
   # 指向示例训练脚本（已随仓库添加）
   trainer_script: "tools/train_coco_json.py"
-
 # 说明：
 # - 若你希望直接使用 COCO JSON 训练，请把 dataset_root 和 train_json/val_json 填写完整，
 #   然后运行示例脚本 `python tools/train_coco_json.py --data configs/yolo26_0.yaml`。
