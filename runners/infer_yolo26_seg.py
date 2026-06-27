@@ -2,24 +2,25 @@
 """
 YOLO26-Seg 分割推理 Demo
 支持：图片 / 视频 / 文件夹
-输出：可视化图片/视频、JSON结果、mask像素图
+输出：可视化图片/视频、JSON结果、mask像素图.
 """
 
 import argparse
 import json
 import time
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 import cv2
-import yaml
 import numpy as np
+import yaml
 from tqdm import tqdm
+
 from ultralytics import YOLO
 
 
 def load_config(config_path):
-    with open(config_path, "r", encoding="utf-8") as f:
+    with open(config_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -32,9 +33,7 @@ def is_video(path):
 
 
 def save_mask_images(result, mask_dir, frame_id):
-    """
-    保存每个实例的二值mask图
-    """
+    """保存每个实例的二值mask图."""
     mask_paths = []
 
     if result.masks is None:
@@ -52,9 +51,7 @@ def save_mask_images(result, mask_dir, frame_id):
 
 
 def parse_seg_result(result):
-    """
-    解析YOLO26-Seg输出
-    """
+    """解析YOLO26-Seg输出."""
     predictions = []
 
     boxes = result.boxes
@@ -69,7 +66,7 @@ def parse_seg_result(result):
             "confidence": float(box.conf[0]),
             "class_id": int(box.cls[0]),
             "mask_area": 0,
-            "polygon": []
+            "polygon": [],
         }
 
         if masks is not None:
@@ -98,7 +95,7 @@ def infer_image(model, image_path, output_dir, config):
         iou=config["iou_threshold"],
         imgsz=config["imgsz"],
         device=config["device"],
-        verbose=False
+        verbose=False,
     )
 
     result = results[0]
@@ -115,7 +112,7 @@ def infer_image(model, image_path, output_dir, config):
         "image": str(image_path),
         "output": str(out_img),
         "predictions": parse_seg_result(result),
-        "mask_files": mask_paths
+        "mask_files": mask_paths,
     }
 
 
@@ -132,12 +129,7 @@ def infer_video(model, video_path, output_dir, config):
 
     out_video = output_dir / f"{video_path.stem}_seg.mp4"
 
-    writer = cv2.VideoWriter(
-        str(out_video),
-        cv2.VideoWriter_fourcc(*"mp4v"),
-        fps,
-        (width, height)
-    )
+    writer = cv2.VideoWriter(str(out_video), cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
 
     mask_dir = output_dir / "masks"
     if config.get("save_masks", True):
@@ -165,7 +157,7 @@ def infer_video(model, video_path, output_dir, config):
             iou=config["iou_threshold"],
             imgsz=config["imgsz"],
             device=config["device"],
-            verbose=False
+            verbose=False,
         )
 
         infer_time = time.time() - t0
@@ -184,7 +176,7 @@ def infer_video(model, video_path, output_dir, config):
             "frame_id": frame_id,
             "timestamp": frame_id / fps if fps > 0 else 0,
             "predictions": parse_seg_result(result),
-            "mask_files": mask_paths
+            "mask_files": mask_paths,
         }
 
         all_results.append(frame_result)
@@ -200,7 +192,7 @@ def infer_video(model, video_path, output_dir, config):
         "total_frames": len(all_results),
         "avg_inference_time_ms": float(np.mean(inference_times) * 1000) if inference_times else 0,
         "avg_fps": float(1 / np.mean(inference_times)) if inference_times else 0,
-        "frames": all_results
+        "frames": all_results,
     }
 
 
