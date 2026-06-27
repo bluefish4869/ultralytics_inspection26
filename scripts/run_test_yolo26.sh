@@ -23,7 +23,7 @@ echo -e "${NC}"
 
 # 显示使用说明
 show_usage() {
-    cat << EOF
+  cat << EOF
 使用方法: $0 [选项]
 
 测试模式:
@@ -66,34 +66,77 @@ MAX_FRAMES=""
 
 # 解析参数
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        -i|--input) INPUT="$2"; shift 2 ;;
-        -m|--mode) MODE="$2"; shift 2 ;;
-        --model) MODEL="$2"; shift 2 ;;
-        --device) DEVICE="$2"; shift 2 ;;
-        --conf) CONF="$2"; shift 2 ;;
-        --eval) EVAL="--eval"; shift ;;
-        --display) DISPLAY="--display"; shift ;;
-        --save) SAVE="--save"; shift ;;
-        --output-dir) OUTPUT_DIR="$2"; shift 2 ;;
-        --iterations) ITERATIONS="$2"; shift 2 ;;
-        --warmup) WARMUP="$2"; shift 2 ;;
-        --max-frames) MAX_FRAMES="--max-frames $2"; shift 2 ;;
-        -h|--help) show_usage; exit 0 ;;
-        *) echo "未知参数: $1"; show_usage; exit 1 ;;
-    esac
+  case $1 in
+    -i | --input)
+      INPUT="$2"
+      shift 2
+      ;;
+    -m | --mode)
+      MODE="$2"
+      shift 2
+      ;;
+    --model)
+      MODEL="$2"
+      shift 2
+      ;;
+    --device)
+      DEVICE="$2"
+      shift 2
+      ;;
+    --conf)
+      CONF="$2"
+      shift 2
+      ;;
+    --eval)
+      EVAL="--eval"
+      shift
+      ;;
+    --display)
+      DISPLAY="--display"
+      shift
+      ;;
+    --save)
+      SAVE="--save"
+      shift
+      ;;
+    --output-dir)
+      OUTPUT_DIR="$2"
+      shift 2
+      ;;
+    --iterations)
+      ITERATIONS="$2"
+      shift 2
+      ;;
+    --warmup)
+      WARMUP="$2"
+      shift 2
+      ;;
+    --max-frames)
+      MAX_FRAMES="--max-frames $2"
+      shift 2
+      ;;
+    -h | --help)
+      show_usage
+      exit 0
+      ;;
+    *)
+      echo "未知参数: $1"
+      show_usage
+      exit 1
+      ;;
+  esac
 done
 
 # 检查输入
 if [ -z "$INPUT" ]; then
-    echo -e "${RED}❌ 错误: 必须指定输入文件${NC}"
-    show_usage
-    exit 1
+  echo -e "${RED}❌ 错误: 必须指定输入文件${NC}"
+  show_usage
+  exit 1
 fi
 
 if [ ! -f "$INPUT" ]; then
-    echo -e "${RED}❌ 错误: 文件不存在: $INPUT${NC}"
-    exit 1
+  echo -e "${RED}❌ 错误: 文件不存在: $INPUT${NC}"
+  exit 1
 fi
 
 # 显示配置
@@ -112,15 +155,15 @@ echo ""
 echo -e "${YELLOW}🚀 开始测试...${NC}\n"
 
 python3 ultralytics/runners/test_yolo26.py \
-    --input "$INPUT" \
-    --mode "$MODE" \
-    --model "$MODEL" \
-    --device "$DEVICE" \
-    --conf "$CONF" \
-    $EVAL \
-    $DISPLAY \
-    $SAVE \
-    --output-dir "$OUTPUT_DIR" \
-    $MAX_FRAMES \
-    --iterations $ITERATIONS \
-    --warm
+  --input "$INPUT" \
+  --mode "$MODE" \
+  --model "$MODEL" \
+  --device "$DEVICE" \
+  --conf "$CONF" \
+  $EVAL \
+  $DISPLAY \
+  $SAVE \
+  --output-dir "$OUTPUT_DIR" \
+  $MAX_FRAMES \
+  --iterations $ITERATIONS \
+  --warm
