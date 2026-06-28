@@ -147,7 +147,7 @@ def main():
     # 创建带时间戳的输出目录
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     experiment_name = config.get('experiment_name', 'test_yolo26')
-    runs_dir = project_root / 'runs' / f"{experiment_name}_{timestamp}"
+    runs_dir = project_root / 'runs' / f"test_{experiment_name}_{timestamp}"
     runs_dir.mkdir(parents=True, exist_ok=True)
     
     # 确定输出路径

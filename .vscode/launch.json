@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "test yolo26",
+            "name": "test det",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/runners/test_yolo26.py",
@@ -43,6 +43,29 @@
             // 可选：添加命令行参数
             "args": [
                 "--config", "${workspaceFolder}/configs/yolo26_seg.yaml",
+            ],
+            
+            // 可选：环境变量
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "train det",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/runners/train_yolo26.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,  // 允许进入库代码
+            "showReturnValue": true,  // 显示函数返回值
+            
+            // 可选：启用更详细的调试信息
+            "logToFile": true,
+            "redirectOutput": true,
+            
+            // 可选：添加命令行参数
+            "args": [
+                "--config", "${workspaceFolder}/configs/yolo26_det.yaml",
             ],
             
             // 可选：环境变量
