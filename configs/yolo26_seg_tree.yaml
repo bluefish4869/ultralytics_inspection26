@@ -3,14 +3,16 @@ experiment_name: "yolo26_seg"
 task_type: "segment"
 
 ######### 模型配置 #########
-model: "/mnt/pfs-baidu/public/qing.chen/inspection/ckpts/yolo26n-seg.pt"
+# model: "/mnt/pfs-baidu/public/qing.chen/inspection/ckpts/yolo26n-seg.pt"
+model: "/mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/ckpts/seg_tree_0628.pt"
 device: "cuda"
 imgsz: 640
 amp: false
 
 ######### 数据配置 #########
-input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
-# input_path: "/mnt/pfs-baidu/public/muyuan.zhang/ultralytics-main/data/bus.jpg"
+input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/data/20260610-104732.jpg"
+# input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/data/bus.jpg"
+
 max_frames: 500
 frame_skip: 1
 
