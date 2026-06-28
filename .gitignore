@@ -130,7 +130,8 @@ venv.bak/
 .spyproject
 
 # VSCode project settings
-.vscode/
+# .vscode/
+# /.vscode
 .devcontainer/
 
 # Rope project settings
@@ -148,6 +149,7 @@ dmypy.json
 .pyre/
 
 # datasets and projects (ignore /datasets dir at root only to allow for docs/en/datasets dir)
+/data
 /datasets
 runs/
 wandb/
@@ -155,6 +157,7 @@ wandb/
 
 # Neural Network weights -----------------------------------------------------------------------------------------------
 weights/
+/ckpts
 *.weights
 *.pt
 *.ts

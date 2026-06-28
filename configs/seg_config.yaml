@@ -2,9 +2,9 @@ experiment_name: "yolo26_seg_demo"
 
 model: "/mnt/pfs-baidu/public/muyuan.zhang/runs/segment/train-3/weights/best.pt"
 
-input_path: "/mnt/pfs-baidu/public/muyuan.zhang//ultralytics-main/data/webdamages/AL4-AL98A5-M1-25010-20250716135316.mp4"
+input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
 
-output_dir: "/mnt/pfs-baidu/public/muyuan.zhang/runs/segment_demo"
+output_dir: "/mnt/pfs-baidu/public/qing.chen/inspection/output/segment_demo"
 
 device: 0
 imgsz: 640

@@ -9,7 +9,7 @@ conf_threshold: 0.25
 iou_threshold: 0.45
 
 ######### 数据配置 #########
-input_path: "/mnt/pfs-baidu/public/muyuan.zhang/ultralytics-main/data/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
+input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
 # input_path: "/mnt/pfs-baidu/public/muyuan.zhang/ultralytics-main/data/bus.jpg"
 max_frames: 500
 frame_skip: 1
