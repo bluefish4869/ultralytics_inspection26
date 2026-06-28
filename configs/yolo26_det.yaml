@@ -25,9 +25,9 @@ save_video: true        # 视频输入时，是否保存为MP4视频（需 is_sa
 save_json: true         # 是否保存JSON结果
 
 ######### 训练配置#########
-path: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX
-train: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX/train.txt
-val: /mnt/pfs-baidu/public/muyuan.zhang/MEC_WX_6099_YKZX/val.txt
+path: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/det_ad_coco
+train: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/det_ad_coco/train.txt
+val: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/det_ad_coco/val.txt
 nc: 7
 names:
   0: barricade

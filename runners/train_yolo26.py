@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-YOLO26 检测训练程序（连续训练 + 每轮自定义评估回调）
+YOLO26 通用训练程序（检测/分割，连续训练 + 每轮自定义评估回调）
 """
 
 import sys
@@ -160,8 +160,9 @@ def run_custom_eval(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="YOLO26 检测训练")
+    parser = argparse.ArgumentParser(description="YOLO26 检测/分割训练")
     parser.add_argument("--config", "-c", type=str, default="configs/yolo26_det.yaml", help="配置文件路径")
+    parser.add_argument("--data", type=str, default=None, help="数据配置路径，覆盖配置文件内的数据定义")
     parser.add_argument("--epochs", type=int, default=None, help="总训练轮数，覆盖配置")
     parser.add_argument("--imgsz", type=int, default=None, help="输入尺寸，覆盖配置")
     parser.add_argument("--batch", type=int, default=None, help="batch size，覆盖配置")
@@ -189,6 +190,8 @@ def main():
         config["device"] = args.device
     if args.model is not None:
         config["model"] = args.model
+    if args.data is not None:
+        config["data"] = args.data
     if args.eval:
         config["eval_enabled"] = True
 
@@ -204,8 +207,25 @@ def main():
     amp = bool(config.get("amp", False))
     eval_enabled = bool(config.get("eval_enabled", False))
 
-    # 使用配置文件自身作为数据集描述（包含 path/train/val/nc/names）
-    data_cfg_path = str(config_path)
+    # 支持两种数据配置方式：
+    # 1) 配置文件自身就是 data yaml（推荐）
+    # 2) 通过 data 字段或 --data 指向独立 data yaml（兼容旧分割脚本）
+    data_cfg_value = str(config.get("data", "")).strip()
+    if data_cfg_value:
+        data_path = Path(data_cfg_value)
+        if not data_path.is_absolute():
+            data_path = (project_root / data_path).resolve()
+        data_cfg_path = str(data_path)
+    else:
+        data_cfg_path = str(config_path)
+
+    task_value = str(config.get("task", config.get("task_type", ""))).strip().lower()
+    if task_value in {"seg", "segment", "segmentation"}:
+        task_name = "segment"
+    elif task_value in {"det", "detect", "detection"}:
+        task_name = "detect"
+    else:
+        task_name = "segment" if "seg" in model_path.lower() else "detect"
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     experiment_name = str(config.get("experiment_name", "yolo26_det"))
@@ -216,6 +236,7 @@ def main():
     print("\n" + "=" * 70)
     print("YOLO26 连续训练")
     print("=" * 70)
+    print(f"训练任务: {task_name}")
     print(f"配置文件: {config_path}")
     print(f"模型路径: {model_path}")
     print(f"数据配置: {data_cfg_path}")
