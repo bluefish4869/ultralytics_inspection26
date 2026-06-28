@@ -27,7 +27,7 @@ gt_annotation_file: ""  # COCO格式标注文件，用于自定义评估
 batch: 2
 epochs: 300
 workers: 8
-path: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/seg_tree_coco
+path: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/seg_tree_yolo
 train: images/train
 val: images/val
 nc: 1
