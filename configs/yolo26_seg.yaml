@@ -1,0 +1,26 @@
+######### 基础配置 #########
+experiment_name: "yolo26_seg"
+task_type: "seg"
+
+######### 模型配置 #########
+model: "/mnt/pfs-baidu/public/qing.chen/inspection/ckpts/yolo26n.pt"
+device: "cuda"
+conf_threshold: 0.05
+iou_threshold: 0.45
+imgsz: 640
+
+######### 数据配置 #########
+input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
+max_frames: 500
+frame_skip: 1
+
+######### 评估配置 #########
+eval_enabled: false
+gt_annotation_file: ""  # COCO格式标注文件，用于评估
+
+######### 输出配置 #########
+save_masks: true
+is_save: true           # 总开关：是否保存任何输出
+save_pic: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_video: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_json: true         # 是否保存JSON结果

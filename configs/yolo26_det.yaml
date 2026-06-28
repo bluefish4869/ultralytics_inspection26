@@ -1,9 +1,9 @@
 ######### 基础配置 #########
-experiment_name: "yolo26_video_test"
-output_dir: "test_results"
+experiment_name: "yolo26_det"
+task_type: "infer"
 
 ######### 模型配置 #########
-model: "/mnt/pfs-baidu/public/muyuan.zhang/ultralytics-main/ckpts/yolo26n.pt"
+model: "/mnt/pfs-baidu/public/qing.chen/inspection/ckpts/yolo26n.pt"
 device: "cuda"
 conf_threshold: 0.25
 iou_threshold: 0.45
