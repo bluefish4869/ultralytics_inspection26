@@ -763,7 +763,8 @@ class Model(torch.nn.Module):
             "data": (overrides.get("data") if kwargs.get("cfg") else None)
             or DEFAULT_CFG_DICT["data"]
             or TASK2DATA[self.task],
-            "model": self.overrides["model"],
+            # Repeated train() calls may have overrides reset from ckpt args and miss "model".
+            "model": self.overrides.get("model") or kwargs.get("model") or self.ckpt_path,
             "task": self.task,
         }  # method defaults
         args = {**overrides, **custom, **kwargs, "mode": "train", "session": self.session}  # prioritizes rightmost args

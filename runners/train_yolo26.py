@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-YOLO26 检测训练程序（循环训练 + 自定义评估）
+YOLO26 检测训练程序（连续训练 + 每轮自定义评估回调）
 """
 
 import sys
@@ -214,7 +214,7 @@ def main():
     run_dir.mkdir(parents=True, exist_ok=True)
 
     print("\n" + "=" * 70)
-    print("YOLO26 循环训练")
+    print("YOLO26 连续训练")
     print("=" * 70)
     print(f"配置文件: {config_path}")
     print(f"模型路径: {model_path}")
@@ -228,40 +228,42 @@ def main():
     model = YOLO(model_path)
 
     history = []
-    for epoch in range(1, total_epochs + 1):
-        print(f"\n[Train] Epoch {epoch}/{total_epochs}")
-        train_result = model.train(
-            data=data_cfg_path,
-            epochs=1,
-            imgsz=imgsz,
-            batch=batch,
-            workers=workers,
-            device=device,
-            project=str(project_root / "runs"),
-            name=run_name,
-            exist_ok=True,
-            resume=epoch > 1,
-            amp=amp,
-            val=False,
-            verbose=True,
-        )
+    history_path = run_dir / "train_history.json"
 
+    def on_fit_epoch_end(trainer):
+        """每轮结束后记录信息，并可选执行自定义评估。"""
+        epoch = int(getattr(trainer, "epoch", -1)) + 1
+
+        # final_eval 会额外触发一次 on_fit_epoch_end，这里只保留真实训练轮次。
+        if epoch < 1 or epoch > total_epochs:
+            return
+
+        # 防止同一轮被重复记录。
+        if history and int(history[-1].get("epoch", -1)) == epoch:
+            return
+
+        print(f"\n[Train] Epoch {epoch}/{total_epochs} 完成")
         epoch_record = {
             "epoch": epoch,
-            "train_result": str(train_result),
+            "fitness": float(trainer.fitness) if getattr(trainer, "fitness", None) is not None else None,
+            "lr": {k: float(v) for k, v in getattr(trainer, "lr", {}).items()},
         }
 
         if eval_enabled:
             print(f"[Eval] Epoch {epoch}: 运行自定义评估...")
-            eval_metrics = run_custom_eval(
-                model=model,
-                config=config,
-                project_root=project_root,
-                epoch=epoch,
-                eval_max_images=args.eval_max_images,
-                device=device,
-                run_dir=run_dir,
-            )
+            try:
+                eval_metrics = run_custom_eval(
+                    model=model,
+                    config=config,
+                    project_root=project_root,
+                    epoch=epoch,
+                    eval_max_images=args.eval_max_images,
+                    device=device,
+                    run_dir=run_dir,
+                )
+            except Exception as e:
+                eval_metrics = {"skipped": True, "reason": f"自定义评估异常: {e}"}
+
             epoch_record["custom_eval"] = eval_metrics
             if eval_metrics.get("skipped"):
                 print(f"[Eval] 跳过: {eval_metrics.get('reason')}")
@@ -269,9 +271,32 @@ def main():
                 print(f"[Eval] mAP: {eval_metrics.get('mAP', 0):.4f}")
 
         history.append(epoch_record)
-
-        history_path = run_dir / "train_history.json"
         history_path.write_text(json.dumps(history, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    model.add_callback("on_fit_epoch_end", on_fit_epoch_end)
+
+    train_result = model.train(
+        data=data_cfg_path,
+        epochs=total_epochs,
+        imgsz=imgsz,
+        batch=batch,
+        workers=workers,
+        device=device,
+        project=str(project_root / "runs"),
+        name=run_name,
+        exist_ok=True,
+        resume=False,
+        amp=amp,
+        val=False,
+        verbose=True,
+    )
+
+    summary = {
+        "train_result": str(train_result),
+        "epochs": total_epochs,
+        "history_file": str(history_path),
+    }
+    (run_dir / "train_summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
 
     print("\n训练完成")
     print(f"历史记录: {run_dir / 'train_history.json'}")
