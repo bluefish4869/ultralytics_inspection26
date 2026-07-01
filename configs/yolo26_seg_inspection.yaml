@@ -1,0 +1,45 @@
+######### 基础配置 #########
+experiment_name: "yolo26_seg"
+task_type: "segment"
+
+######### 模型配置 #########
+# model: "/mnt/pfs-baidu/public/qing.chen/inspection/ckpts/yolo26n-seg.pt"
+model: "/mnt/pfs-baidu/public/qing.chen/inspection/train_results/train_yolo26_seg_20260630_194007/weights/best.pt"
+device: "cuda"
+imgsz: 640
+amp: false
+
+######### 数据配置 #########
+# input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/tools/../../datasets/seg_inspection_yolo/images/AL4-AL108A3-M1-25017-20250527110306_frame_000060.jpg"
+# input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/tools/../../datasets/seg_inspection_yolo/images/AL4-AL108A3-M1-25017-20250527110306_frame_000003.jpg"
+input_path: "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4"
+
+max_frames: 8000
+frame_skip: 1
+
+######### 评估配置 #########
+eval_enabled: false
+conf_threshold: 0.25
+iou_threshold: 0.45
+gt_annotation_file: ""  # COCO格式标注文件，用于自定义评估
+
+
+########## 训练配置#########
+batch: 2
+epochs: 300
+workers: 8
+path: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/seg_inspection_yolo
+train: /mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/datasets/seg_inspection_yolo/subsets/subset_20260630_184937/subset_20260630_184937_train.txt
+val: /mnt/pfs-baidu/public/qing.chen/inspection/ultralytics_inspection26/datasets/seg_inspection_yolo/subsets/subset_20260630_184937/subset_20260630_184937_val.txt
+nc: 4
+names:
+  0: Crack
+  1: Inclusion
+  2: Fracture
+  3: Normal
+
+######### 输出配置 #########
+is_save: true           # 总开关：是否保存任何输出
+save_pic: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_video: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_json: true         # 是否保存JSON结果

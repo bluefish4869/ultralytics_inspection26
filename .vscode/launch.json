@@ -42,7 +42,7 @@
             
             // 可选：添加命令行参数
             "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_seg.yaml",
+                "--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml",
             ],
             
             // 可选：环境变量
@@ -88,7 +88,7 @@
             
             // 可选：添加命令行参数
             "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_seg.yaml",
+                "--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml",
             ],
             
             // 可选：环境变量
@@ -112,6 +112,30 @@
             // 可选：添加命令行参数
             "args": [
                 "--config", "${workspaceFolder}/configs/yolo26_seg_tree.yaml",
+            ],
+            
+            // 可选：环境变量
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "extract frames",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/tools/extract_frames.py",
+            "console": "integratedTerminal",
+            "justMyCode": false,  // 允许进入库代码
+            "showReturnValue": true,  // 显示函数返回值
+            
+            // 可选：启用更详细的调试信息
+            "logToFile": true,
+            "redirectOutput": true,
+            
+            // 可选：添加命令行参数
+            "args": [
+                "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4",
+                "-i", "100"
             ],
             
             // 可选：环境变量
