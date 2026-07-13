@@ -1,4 +1,4 @@
-"""示例脚本：使用 Ultralytics YOLO 直接基于 COCO JSON 训练
+"""示例脚本：使用 Ultralytics YOLO 直接基于 COCO JSON 训练.
 
 用法：
     python tools/train_coco_json.py --config configs/yolo26_0.yaml
@@ -7,6 +7,7 @@
 
 脚本会读取配置中的 training 字段并使用自定义 COCO Trainer（基于 docs/guides/coco-json-training.md 的实现）。
 """
+
 import argparse
 import json
 from pathlib import Path
@@ -33,7 +34,7 @@ class COCODataset(YOLODataset):
         with open(self.json_file) as f:
             coco = json.load(f)
 
-        images = {img["id"]: img for img in coco["images"]}
+        {img["id"]: img for img in coco["images"]}
         categories = {cat["id"]: i for i, cat in enumerate(sorted(coco["categories"], key=lambda c: c["id"]))}
 
         from collections import defaultdict
@@ -94,7 +95,9 @@ class COCODataset(YOLODataset):
 
 class COCOTrainer(DetectionTrainer):
     def build_dataset(self, img_path, mode="train", batch=None):
-        json_file = self.data.get("train_json") if mode == "train" else self.data.get("val_json", self.data.get("train_json"))
+        json_file = (
+            self.data.get("train_json") if mode == "train" else self.data.get("val_json", self.data.get("train_json"))
+        )
         return COCODataset(
             img_path=img_path,
             json_file=json_file,
@@ -158,6 +161,7 @@ def main():
 
     tmp_data_yaml = Path(".tmp_coco_dataset.yaml")
     import yaml
+
     tmp_data_yaml.write_text(yaml.safe_dump(data_yaml))
 
     model_path = cfg.get("model") or "yolo26n.pt"
