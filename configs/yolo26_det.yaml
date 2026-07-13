@@ -16,13 +16,13 @@ frame_skip: 1
 
 ######### 评估配置 #########
 eval_enabled: false
-gt_annotation_file: ""  # COCO格式标注文件，用于评估
+gt_annotation_file: "" # COCO格式标注文件，用于评估
 
 ######### 输出配置 #########
-is_save: true           # 总开关：是否保存任何输出
-save_pic: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_video: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_json: true         # 是否保存JSON结果
+is_save: true # 总开关：是否保存任何输出
+save_pic: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_video: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_json: true # 是否保存JSON结果
 
 ######### 训练配置#########
 path: /mnt/pfs-baidu/public/qing.chen/inspection/datasets/det_ad_yolo
