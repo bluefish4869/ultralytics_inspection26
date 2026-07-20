@@ -1,147 +1,138 @@
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "test det",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/runners/test_yolo26.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_det.yaml",
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        },
-        {
-            "name": "test seg",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/runners/test_yolo26.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml",
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        },
-        {
-            "name": "train det",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/runners/train_yolo26.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_det.yaml",
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        },
-        {
-            "name": "train seg",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/runners/train_yolo26.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml",
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        },
-        {
-            "name": "seg tree",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/runners/test_yolo26.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "--config", "${workspaceFolder}/configs/yolo26_seg_tree.yaml",
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        },
-        {
-            "name": "extract frames",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/tools/extract_frames.py",
-            "console": "integratedTerminal",
-            "justMyCode": false,  // 允许进入库代码
-            "showReturnValue": true,  // 显示函数返回值
-            
-            // 可选：启用更详细的调试信息
-            "logToFile": true,
-            "redirectOutput": true,
-            
-            // 可选：添加命令行参数
-            "args": [
-                "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4",
-                "-i", "100"
-            ],
-            
-            // 可选：环境变量
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}"
-            }
-        }
-    ]
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "test det",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/test_yolo26.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": ["--config", "${workspaceFolder}/configs/yolo26_det.yaml"],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "test seg",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/test_yolo26.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": ["--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml"],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "train det",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/train_yolo26.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": ["--config", "${workspaceFolder}/configs/yolo26_det.yaml"],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "train seg",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/train_yolo26.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": ["--config", "${workspaceFolder}/configs/yolo26_seg_inspection.yaml"],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "seg tree",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/runners/test_yolo26.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": ["--config", "${workspaceFolder}/configs/yolo26_seg_tree.yaml"],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "extract frames",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/tools/extract_frames.py",
+      "console": "integratedTerminal",
+      "justMyCode": false, // 允许进入库代码
+      "showReturnValue": true, // 显示函数返回值
+
+      // 可选：启用更详细的调试信息
+      "logToFile": true,
+      "redirectOutput": true,
+
+      // 可选：添加命令行参数
+      "args": [
+        "/mnt/pfs-baidu/public/qing.chen/inspection/data/inspect_videos/webdamages/AL4-AL108A3-M1-25017-20250527110306.mp4",
+        "-i",
+        "100"
+      ],
+
+      // 可选：环境变量
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}"
+      }
+    }
+  ]
 }
