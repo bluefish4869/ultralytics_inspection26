@@ -1,32 +1,30 @@
 #!/usr/bin/env python3
-"""
-YOLO26 通用训练程序（检测/分割，连续训练 + 每轮自定义评估回调）
-"""
+"""YOLO26 通用训练程序（检测/分割，连续训练 + 每轮自定义评估回调）."""
 
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import argparse
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
 
 import yaml
-from ultralytics import YOLO
 
+from ultralytics import YOLO
 from utils.evaluator import COCOEvaluator
 
 
-def load_config(config_path: Path) -> Dict:
-    """加载 YAML 配置。"""
-    with open(config_path, "r", encoding="utf-8") as f:
+def load_config(config_path: Path) -> dict:
+    """加载 YAML 配置。."""
+    with open(config_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
 def parse_device(device_value):
-    """兼容配置里的 cpu/cuda/数字设备写法。"""
+    """兼容配置里的 cpu/cuda/数字设备写法。."""
     if isinstance(device_value, int):
         return device_value
     if isinstance(device_value, str):
@@ -41,8 +39,8 @@ def parse_device(device_value):
     return 0
 
 
-def load_val_images(val_cfg: str, project_root: Path) -> List[Path]:
-    """支持从 txt/目录/单文件收集验证图片列表。"""
+def load_val_images(val_cfg: str, project_root: Path) -> list[Path]:
+    """支持从 txt/目录/单文件收集验证图片列表。."""
     val_path = Path(val_cfg)
     if not val_path.is_absolute():
         val_path = (project_root / val_path).resolve()
@@ -61,8 +59,8 @@ def load_val_images(val_cfg: str, project_root: Path) -> List[Path]:
     return []
 
 
-def collect_predictions(result) -> List[Dict]:
-    """将单张图像预测结果转为 COCOEvaluator 需要的结构。"""
+def collect_predictions(result) -> list[dict]:
+    """将单张图像预测结果转为 COCOEvaluator 需要的结构。."""
     predictions = []
     boxes = result.boxes
     if boxes is None:
@@ -80,8 +78,8 @@ def collect_predictions(result) -> List[Dict]:
     return predictions
 
 
-def build_image_name_mapping(coco_data: Dict) -> Dict[str, int]:
-    """建立 file_name 与 image_id 的映射，优先按 basename 兜底。"""
+def build_image_name_mapping(coco_data: dict) -> dict[str, int]:
+    """建立 file_name 与 image_id 的映射，优先按 basename 兜底。."""
     mapping = {}
     for img in coco_data.get("images", []):
         file_name = str(img.get("file_name", ""))
@@ -95,14 +93,14 @@ def build_image_name_mapping(coco_data: Dict) -> Dict[str, int]:
 
 def run_custom_eval(
     model: YOLO,
-    config: Dict,
+    config: dict,
     project_root: Path,
     epoch: int,
     eval_max_images: int,
     device,
     run_dir: Path,
-) -> Dict:
-    """在每个 epoch 后执行自定义评估。"""
+) -> dict:
+    """在每个 epoch 后执行自定义评估。."""
     gt_file = str(config.get("gt_annotation_file", "")).strip()
     val_cfg = str(config.get("val", "")).strip()
     if not gt_file:
@@ -252,7 +250,7 @@ def main():
     history_path = run_dir / "train_history.json"
 
     def on_fit_epoch_end(trainer):
-        """每轮结束后记录信息，并可选执行自定义评估。"""
+        """每轮结束后记录信息，并可选执行自定义评估。."""
         epoch = int(getattr(trainer, "epoch", -1)) + 1
 
         # final_eval 会额外触发一次 on_fit_epoch_end，这里只保留真实训练轮次。

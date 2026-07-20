@@ -1,6 +1,6 @@
-from ultralytics import YOLO
 import cv2
-import os
+
+from ultralytics import YOLO
 
 # 1. 权重和视频路径
 model_path = "./yolo26n.pt"
@@ -29,13 +29,7 @@ while True:
         break
 
     # 5. 推理
-    results = model.predict(
-        source=frame,
-        conf=0.25,
-        iou=0.45,
-        device=0,
-        verbose=False
-    )
+    results = model.predict(source=frame, conf=0.25, iou=0.45, device=0, verbose=False)
 
     # 6. 绘制结果
     annotated_frame = results[0].plot()

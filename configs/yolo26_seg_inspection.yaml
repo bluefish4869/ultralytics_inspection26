@@ -21,8 +21,7 @@ frame_skip: 1
 eval_enabled: false
 conf_threshold: 0.25
 iou_threshold: 0.45
-gt_annotation_file: ""  # COCO格式标注文件，用于自定义评估
-
+gt_annotation_file: "" # COCO格式标注文件，用于自定义评估
 
 ########## 训练配置#########
 batch: 2
@@ -39,7 +38,7 @@ names:
   3: Normal
 
 ######### 输出配置 #########
-is_save: true           # 总开关：是否保存任何输出
-save_pic: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_video: true        # 视频输入时，是否保存为MP4视频（需 is_save=true）
-save_json: true         # 是否保存JSON结果
+is_save: true # 总开关：是否保存任何输出
+save_pic: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_video: true # 视频输入时，是否保存为MP4视频（需 is_save=true）
+save_json: true # 是否保存JSON结果
